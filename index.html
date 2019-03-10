@@ -1,3 +1,104 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="frontImage"></div>
+        <div class="container">
+            <div id="app">
+                <h1 id="header" v-if="intro.bool"> {{ intro.title }} </h1>   
+                <div v-if="step === 1 ">
+                    <p id="intro" v-if="intro.bool"> {{ intro.text }}</p>
+                    <label for="fullName">First & Last Name: </label>
+                    <input type="text" id="fullName" class="inputText" placeholder=" Enter Full Name" v-model="fName" required/>
+                    <br/>
+                    <label for="currency">Annual Income: </label>
+                    <input type="number" id="currency" class="inputText" placeholder=" Annual Income"v-model="aIncome" required/>
+                    <br/><br/>
+                    <button id="getStarted" @click="increaseStep">Get Started</button>
+                </div>
+                <div v-if="step === 2">
+                    <p>What is your credit score?</p>
+                    <input type="button" class="roundButton" value="500 - 620" @click="setScore('Low')">
+                    <input type="button" class="roundButton" value="620 - 720" @click="setScore('Good')">
+                    <input type="button" class="roundButton" value="720 - 800" @click="setScore('Excellent')">
+                </div>
+                <div v-if="step === 3">
+                    <p>Are you a first time home buyer or looking to refinance?</p>
+                    <input type="button" class="roundButton" value="First Time" @click="fTime('First time')">
+                    <input type="button" class="roundButton" value="Ref / Buy" @click="fTime('Buy or Refinance')">
+                </div>
+                <div v-if="step === 4">
+                    <p>What type of home are you looking for?</p>
+                    <input type="button" class="roundButton" value="House" @click="hType('House')">
+                    <input type="button" class="roundButton" value="Apartment" @click="hType('Apartment')">
+                    <input type="button" class="roundButton" value="TownHouse" @click="hType('Townhouse')">
+                </div>
+                <div v-if="step === 5">
+                    <p>Wrapping it up. Let us know how much you want to spend: </p>
+                    <input type="number" class="inputText" placeholder="Maximum amount of money to spend" v-model="maximum">
+                    <br/><br/>
+                    <button id="getStarted" @click="finish">Finish</button>
+                </div>
+                <div v-if="step === 6">
+                    <table class="table">
+                        <thead>
+                            <th>Affordability</th>
+                            <th>Credit Score</th>
+                            <th>Buying</th>
+                            <th>Home Type</th>
+                            <th>Maximum Spenditure</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> {{ aIncome }} </td>
+                                <td> {{ cScore }} </td>
+                                <td> {{ firstTime }} </td>
+                                <td> {{ houseType }} </td>
+                                <td> {{ maximum }} </td>
+                            </tr>
+                            <tr>
+                                <td> What you can borrow to buy a house is usually 5 times your annual income. However, it can vary 
+                                    depending on your current debt to income ratio. </td>
+                                <td> Your credit score determines how low or high the interest rate is. The rate that you get can also be determined 
+                                    if you are a first time home buyer. </td>
+                                <td> If you are a first time home buyer you are able to apply for special credit opportunities. 
+                                    If not, you can apply for normal morgages.
+                                </td>
+                                <td> Apartments and townhomes are usually more affordable than houses. However, apartments and townhouses 
+                                    usually come with fees like HOA, but you might save some money on exterior repairs. </td>
+                                <td> The maximun amount that you can afford is usually determined by how much the bank will be allowing you
+                                     to borrow. </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        Based on this information. In order to get a loan you will need to get your credit score ran by a bank or morgage lender. 
+                        After, you will have to provide <b>W-2 for the past two years</b> to confirm income. <b>Tax returns from the last two years</b> to confirm income and 
+                        credit history. <b>Bank statements for the past two months</b> to confirm history about current income/debt ratio.
+                        <b>Last paycheck for the past month (last two if paycheck is by-weekly)</b> to confirm current employment and income. <b>Form of ID</b>, 
+                        and copy of <b>Social Security Number</b>.
+                        After the bank, they will let you know how much you can afford and at what rate. After that, you will have to start shooping for homes
+                        and it is usually advice to find a realtor to help speed the process up. 
+                    </p>
+                </div>
+            </div>
+
+            <footer>
+                <p>GitHub Repository <a href="https://github.com/esdraszx/cp3">Click Here!</a></p>
+            </footer>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
